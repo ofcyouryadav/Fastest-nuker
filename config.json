@@ -1,0 +1,5 @@
+{
+  "prefix": "!",
+  "ownerID": "your_discord_user_id",
+  "token": "YOUR_TOKEN_HERE_IF_NOT_USING_ENV"
+}
